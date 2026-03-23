@@ -119,6 +119,7 @@ bool assign_clusters(std::vector<Point>& points, const std::vector<Point>& centr
 
     // Se usa schedule(static) porque todos los puntos hacen el mismo trabajo - Cada hilo tiene su bloque de puntos del mismo tamaño
     // Se usa reduction(||:changed) para que si algun hilo marca un cambio, el resultado final sea true
+    #pragma omp parallel for schedule(static) reduction(||:changed)
     for (int i = 0; i < n; i++) {
         double min_dist = std::numeric_limits<double>::max();
         int best_cluster = 0;
